@@ -283,7 +283,7 @@ I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc Method::Delegation
+    perldoc Role::Random::PerInstance
 
 You can also look for information at:
 
@@ -295,13 +295,13 @@ L<https://github.com/Ovid/role-random-perinstance/issues>
 
 =item * Search CPAN
 
-L<https://metacpan.org/release/Method-Delegation>
+L<https://metacpan.org/release/Role::Random::PerInstance>
 
 =back
 
 =head1 SEE ALSO
 
-C<Method::Delegation> was developed for the narrative sci-fi game L<Tau
+C<Role::Random::PerInstance> was developed for the narrative sci-fi game L<Tau
 Station|https://taustation.space>. We like it because the syntax is simple,
 clear, and intuitive (to us). However, there are a few alternatives on the
 CPAN that you might find useful:

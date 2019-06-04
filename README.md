@@ -154,7 +154,7 @@ I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc Method::Delegation
+    perldoc Role::Random::PerInstance
 
 You can also look for information at:
 
@@ -164,11 +164,11 @@ You can also look for information at:
 
 - Search CPAN
 
-    [https://metacpan.org/release/Method-Delegation](https://metacpan.org/release/Method-Delegation)
+    [https://metacpan.org/release/Role::Random::PerInstance](https://metacpan.org/release/Role::Random::PerInstance)
 
 # SEE ALSO
 
-`Method::Delegation` was developed for the narrative sci-fi game [Tau
+`Role::Random::PerInstance` was developed for the narrative sci-fi game [Tau
 Station](https://taustation.space). We like it because the syntax is simple,
 clear, and intuitive (to us). However, there are a few alternatives on the
 CPAN that you might find useful:
