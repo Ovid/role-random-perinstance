@@ -7,6 +7,7 @@ WriteMakefile(
     'AUTHOR'        => q{Curtis 'Ovid' Poe <ovid@cpan.org>},
     'VERSION_FROM'  => 'lib/Role/Random/PerInstance.pm',
     'ABSTRACT_FROM' => 'lib/Role/Random/PerInstance.pm',
+    'LICENSE'       => 'artistic_2',
     'PREREQ_PM'     => {
         'Test::Most'  => '0.35',
         'Math::Round' => '0.07',
