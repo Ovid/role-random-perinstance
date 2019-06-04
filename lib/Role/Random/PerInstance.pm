@@ -139,14 +139,17 @@ Role::Random::PerInstance - A role for dealing with random values, per instance
     if ( $self->random < .65 ) {
         ...
     }
+
     # same thing ...
-    if ( $self->attempt(.65 ) {
+
+    if ( $self->attempt(.65) ) {
         ...
     }
 
 =head1 DESCRIPTION
 
-This role allows you to create random numbers "per instance"g
+This role allows you to use random numbers, maintaining separate random
+numbers for each instance.
 
 =head1 METHODS
 
@@ -168,7 +171,8 @@ return false, and a $chance value of 1 or more will always return true.
     my $even = $self->random(100, 200, 2 );
 
 Generate a random number from $min to $max inclusive, where the resulting
-random number increments by a value of $step starting from $min.
+random number increments by a value of $step starting from $min. If C<step> is
+not supplied, this method behaves like C<rand>, but from C<$min> to C<$max>.
 
 By default (if no arguments are passed), this method will work the same as the
 built in 'rand' function, which is to return a value from 0 to 1, but not
@@ -192,6 +196,9 @@ If an object consuming this role passes in an integer random seed to the
 constructor, all "random" methods in this role will use the
 C<deterministic_rand()> method instead of the built in C<rand()> function.
 
+In other words, if C<random_seed> is not supplied to the constructor, the
+random numbers will I<not> be repeatable.
+
 =head2 C<deterministic_rand>
 
     my $rand = $object->deterministic_rand;
@@ -206,8 +213,8 @@ cryptographically secure, but the numbers are evenly distributed.
 C<< $self->random_seed >> must be set in the object constructor to ensure
 deterministic randomness.
 
-The algorithm is the Linear Congruential Generator and is described at
-https://en.wikipedia.org/wiki/Linear_congruential_generator
+The algorithm is the L<Linear Congruential
+Generator|https://en.wikipedia.org/wiki/Linear_congruential_generator>.
 
 We've tried merely calling C<srand(seed)>, but it turned out to not be as
 deterministic as promised and also doesn't allow us fine-grained "per instance"
@@ -218,9 +225,7 @@ control.
     my @items = qw(one two three four five);
     my $item = $items[ $self->random_int(0, $#items) ];
 
-Generate a random integer from $min to $max inclusive.  The $type value is used
-for logging purposes so we can analyse specific instances of chance in the
-game.
+Generate a random integer from $min to $max inclusive.
 
 =head2 C<weighted_pick>
 
@@ -238,3 +243,97 @@ values. A single value from the hash will be returned. The higher its "key"
 value, the more likely it is to be returned. Note that if you wanted an even
 chance of all values, ensure that all keys have the same value (but at that
 point, a straight C<rand()> would be more efficient.
+
+=head1 BACKGROUND
+
+The narrative sci-fi game, L<Tau Station|https://taustation.space/>, needed a
+way to have I<repeatable> random numbers, with different instances of objects
+creating their own series of random numbers. Perl's
+L<rand|https://perldoc.perl.org/functions/rand.html> function is global, and
+seeding it with L<srand|https://perldoc.perl.org/functions/srand.html> turns
+out to not be as deterministic as we had hoped.
+L<Math::Random|https://metacpan.org/pod/Math::Random> is also global. Hence,
+our own module.
+
+Not only does this give you repeatable (via C<random_seed>) random numbers, it
+gives you non-repeatable random numbers (just don't provide a seed) and many
+useful random utilities.
+
+We implemented a L<Linear Congruential
+Generator|https://en.wikipedia.org/wiki/Linear_congruential_generator> and you
+get seven digits after the decimal point, so each number has a 1 in ten
+million chance of occuring. That is perfect for our needs. It may not be
+perfect for yours.
+
+Also, while the Linear Congruential Generator is fairly efficient and random,
+it's not cryptographically secure.
+
+=head1 AUTHOR
+
+Curtis "Ovid" Poe, C<< <curtis.poe at gmail.com> >>
+
+=head1 BUGS
+
+Please report any bugs or feature fequests via the Web interface at
+L<https://github.com/Ovid/role-random-perinstance/issues>.  I will be
+notified, and then you'll automatically be notified of progress on your bug as
+I make changes.
+
+=head1 SUPPORT
+
+You can find documentation for this module with the perldoc command.
+
+    perldoc Method::Delegation
+
+You can also look for information at:
+
+=over 4
+
+=item * Bug Tracker
+
+L<https://github.com/Ovid/role-random-perinstance/issues>
+
+=item * Search CPAN
+
+L<https://metacpan.org/release/Method-Delegation>
+
+=back
+
+=head1 SEE ALSO
+
+C<Method::Delegation> was developed for the narrative sci-fi game L<Tau
+Station|https://taustation.space>. We like it because the syntax is simple,
+clear, and intuitive (to us). However, there are a few alternatives on the
+CPAN that you might find useful:
+
+=over 4
+
+=item * L<Class::Delegation|https://metacpan.org/pod/Class::Delegation>
+
+=item * L<Class::Delegation::Simple|https://metacpan.org/pod/Class::Delegation::Simple>
+
+=item * L<Class::Delegate|https://metacpan.org/pod/Class::Delegate>
+
+=item * L<Class::Method::Delegate|https://metacpan.org/pod/Class::Method::Delegate>
+
+=back
+
+
+=head1 ACKNOWLEDGEMENTS
+
+This code was written to help reduce the complexity of the narrative sci-fi
+adventure, L<Tau Station|https://taustation.space>. As of this writing, it's
+around 1/3 of a million lines of code (counting front-end, back-end, tests,
+etc.), and anything to reduce that complexity is a huge win.
+
+=head1 LICENSE AND COPYRIGHT
+
+This software is Copyright (c) 2019 by Curtis "Ovid" Poe.
+
+This is free software, licensed under:
+
+  The Artistic License 2.0 (GPL Compatible)
+
+=cut
+
+1;
