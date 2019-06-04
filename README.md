@@ -164,7 +164,7 @@ You can also look for information at:
 
 - Search CPAN
 
-    [https://metacpan.org/release/Role::Random::PerInstance](https://metacpan.org/release/Role::Random::PerInstance)
+    [https://metacpan.org/release/Role-Random-PerInstance](https://metacpan.org/release/Role-Random-PerInstance)
 
 # SEE ALSO
 

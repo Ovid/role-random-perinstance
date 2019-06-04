@@ -295,7 +295,7 @@ L<https://github.com/Ovid/role-random-perinstance/issues>
 
 =item * Search CPAN
 
-L<https://metacpan.org/release/Role::Random::PerInstance>
+L<https://metacpan.org/release/Role-Random-PerInstance>
 
 =back
 
