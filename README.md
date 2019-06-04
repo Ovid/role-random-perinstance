@@ -145,7 +145,7 @@ Curtis "Ovid" Poe, `<curtis.poe at gmail.com>`
 
 # BUGS
 
-Please report any bugs or feature fequests via the Web interface at
+Please report any bugs or feature requests via the Web interface at
 [https://github.com/Ovid/role-random-perinstance/issues](https://github.com/Ovid/role-random-perinstance/issues).  I will be
 notified, and then you'll automatically be notified of progress on your bug as
 I make changes.
