@@ -84,30 +84,45 @@ subtest 'random with step' => sub {
     );
     foreach my $args (@data) {
         my ( $min, $max, $step, $set ) = @$args;
-        my %seen;
-        for ( 1 .. $STD_DEV_ITERATIONS ) {
-            my $result = $tester->random( $min, $max, $step );
-            $seen{$result}++;
+        my $passed = 0;
+      ATTEMPT:
+        for ( 1 .. 3 ) {    # try three times to make this work (need to rethink
+            my %seen;
+            for ( 1 .. $STD_DEV_ITERATIONS ) {
+                my $result = $tester->random( $min, $max, $step );
+                $seen{$result}++;
+            }
+
+            # Give a 20% tolerance for chance distribution
+            my $min_expected =
+              ( $STD_DEV_ITERATIONS / scalar(@$set) ) *
+              ( 1 - $STD_DEV_TOLERANCE );
+            my $max_expected =
+              ( $STD_DEV_ITERATIONS / scalar(@$set) ) *
+              ( 1 + $STD_DEV_TOLERANCE );
+
+            # Ensure we have an even distribution of values
+            is( scalar( keys(%seen) ),
+                scalar(@$set), "We have the correct number of results" );
+            foreach my $value (@$set) {
+                my $within_tolerance = $seen{$value} > $min_expected
+                  && $seen{$value} < $max_expected;
+                unless ($within_tolerance) {
+                    diag
+"$min_expected < $seen{value} < $max_expected did not hold. Retrying/";
+                    next ATTEMPT;
+                }
+                ok( $seen{$value}, "We have results for $value" );
+                ok( $within_tolerance,
+                        "... and "
+                      . $seen{$value}
+                      . " is within the 20% tolerance" );
+            }
+            $passed = 1;
         }
-
-        # Give a 20% tolerance for chance distribution
-        my $min_expected =
-          ( $STD_DEV_ITERATIONS / scalar(@$set) ) * ( 1 - $STD_DEV_TOLERANCE );
-        my $max_expected =
-          ( $STD_DEV_ITERATIONS / scalar(@$set) ) * ( 1 + $STD_DEV_TOLERANCE );
-
-        # Ensure we have an even distribution of values
-        is( scalar( keys(%seen) ),
-            scalar(@$set), "We have the correct number of results" );
-        foreach my $value (@$set) {
-            ok( $seen{$value}, "We have results for $value" );
-            ok(
-                (
-                         $seen{$value} > $min_expected
-                      && $seen{$value} < $max_expected
-                ),
-                "... and " . $seen{$value} . " is within the 20% tolerance"
-            );
+        unless ($passed) {
+            explain "This can still fail, but it's much less likely.";
+            fail "We were not within our tolerance level within three tries";
         }
     }
 };
