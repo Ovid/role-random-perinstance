@@ -4,7 +4,7 @@ use Moose::Role;
 use Carp;
 use feature 'state';
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use List::Util qw(sum reduce);
 use Math::Round qw(nlowmult);
@@ -85,7 +85,7 @@ sub weighted_pick {
 
     # Use foreach with a sort to ensure that the order of items in weights and
     # choices is always the same
-    foreach my $choice ( sort keys $weight_for->%* ) {
+    foreach my $choice ( sort keys %$weight_for ) {
         my $weight = $weight_for->{$choice};
         next unless $weight;    # don't include weights of 0
         $total += $weight;
