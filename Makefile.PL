@@ -9,9 +9,10 @@ WriteMakefile(
     'ABSTRACT_FROM' => 'lib/Role/Random/PerInstance.pm',
     'LICENSE'       => 'artistic_2',
     'PREREQ_PM'     => {
-        'Test::Most'  => '0.35',
-        'Math::Round' => '0.07',
         'List::Util'  => '1.4',
+        'Math::Round' => '0.07',
+        'Moose::Role' => 0,
+        'Test::Most'  => '0.35',
     },
     'INSTALLDIRS' => 'site',
     'EXE_FILES'   => [],
