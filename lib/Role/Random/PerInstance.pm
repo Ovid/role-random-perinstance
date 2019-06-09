@@ -4,7 +4,7 @@ use Moose::Role;
 use Carp;
 use feature 'state';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use List::Util qw(sum reduce);
 use Math::Round qw(nlowmult);
