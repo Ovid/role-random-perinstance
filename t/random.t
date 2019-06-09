@@ -7,7 +7,9 @@ my $ITERATIONS         = 10;     # How many random numbers to generate and test
 my $STD_DEV_ITERATIONS = 1000;
 my $STD_DEV_TOLERANCE  = 0.25;
 
-package Random::Tester {
+{
+
+    package Random::Tester;
     use Moose;
     with 'Role::Random::PerInstance';
 }
