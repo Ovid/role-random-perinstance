@@ -1,4 +1,9 @@
 Revision history for Role-Random
 
+0.02    June 9, 2019
+		- Don't use postfix deref (support older Perl's) - SREZIC
+		- Declare dependency on Moose::Role - SREZIC
+		- Fix distribution metadata - manwar
+
 0.01    June 4, 2019
-        Random number utilities in a handy role.
+        - Random number utilities in a handy role.
