@@ -1,5 +1,11 @@
 Revision history for Role-Random
 
+0.03    June 9, 2019
+        - Fix another "too modern" syntax issue in a test (fails on Perl 5.10
+          and older)
+        - Retry 20% tolerance test three times. Need a better approach to
+          that.
+
 0.02    June 9, 2019
 		- Don't use postfix deref (support older Perl's) - SREZIC
 		- Declare dependency on Moose::Role - SREZIC
