@@ -1,7 +1,9 @@
 Revision history for Role-Random
 
 0.04    JUne 10, 2019
-		- Feature 'state' was added in 5.10
+		- Feature 'state' was added in 5.10, so we bump up our minimum
+		  dependency.
+		- Work around Perls which don't use 64 bit integers.
 
 0.03    June 9, 2019
         - Fix another "too modern" syntax issue in a test (fails on Perl 5.10
