@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-require 5.006;
+require 5.010;
 use ExtUtils::MakeMaker;
 WriteMakefile(
     'NAME'          => 'Role::Random::PerInstance',

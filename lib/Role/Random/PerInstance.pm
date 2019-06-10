@@ -2,9 +2,10 @@ package Role::Random::PerInstance;
 
 use Moose::Role;
 use Carp;
+use 5.010;
 use feature 'state';
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use List::Util qw(sum reduce);
 use Math::Round qw(nlowmult);
