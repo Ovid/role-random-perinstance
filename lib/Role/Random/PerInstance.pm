@@ -7,7 +7,6 @@ use feature 'state';
 
 our $VERSION = '0.04';
 
-use List::Util qw(sum reduce);
 use Math::Round qw(nlowmult);
 
 has random_seed => (
